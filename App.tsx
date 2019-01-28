@@ -3,6 +3,8 @@ import React from 'react';
 import Background from './components/background';
 import CurrentTemp from './components/current-temp';
 import DateLocation from './components/date-location';
+import Stat from './components/stat';
+import Stats from './components/stats';
 import Wrapper from './components/wrapper';
 
 interface State {
@@ -24,6 +26,10 @@ export default class App extends React.Component<{}, State> {
           <Wrapper>
             <DateLocation location="Perth, WA" date="Saturday, 26 January" time="4:30pm" />
             <CurrentTemp temp="30" description="Clear. Winds southeasterly 15 to 25 km/h." />
+            <Stats>
+              <Stat text="SE" icon="wind" />
+              <Stat text="5%" icon="rain" />
+            </Stats>
           </Wrapper>
         </>
       );

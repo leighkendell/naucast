@@ -2,6 +2,7 @@ import { Constants } from 'expo';
 import React from 'react';
 import { StyleProp, View, ViewStyle } from 'react-native';
 import styled from 'styled-components';
+import { theme } from '../helpers/theme';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
@@ -15,7 +16,7 @@ const StyledWrapper = styled(Wrapper)`
   height: 100%;
   align-items: center;
   justify-content: center;
-  padding: 40px;
+  padding: ${theme.padding};
   padding-top: ${Constants.statusBarHeight + 40};
 `;
 

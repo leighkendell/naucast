@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleProp, Text, ViewStyle } from 'react-native';
 import styled, { css } from 'styled-components';
+import { theme } from '../helpers/theme';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
@@ -16,6 +17,8 @@ const StyledContent = styled(Content)`
     font-family: ${`font-${props.weight}`};
     font-size: ${props.size};
     text-align: ${props.align};
+    color: #fff;
+    text-shadow: ${theme.shadow};
   `}
 `;
 
