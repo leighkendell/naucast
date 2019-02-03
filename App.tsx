@@ -1,14 +1,17 @@
+import ApolloClient from 'apollo-boost';
 import { AppLoading, Constants, Font, Location, Permissions } from 'expo';
 import React from 'react';
+import { ApolloProvider } from 'react-apollo';
 import { RefreshControl, View } from 'react-native';
 import Background from './components/background';
-import CurrentTemp from './components/current-temp';
-import DateLocation from './components/date-location';
 import Error from './components/error';
-import Stat from './components/stat';
-import Stats from './components/stats';
+import Weather from './components/weather';
 import Wrapper from './components/wrapper';
 import { theme } from './helpers/theme';
+
+const client = new ApolloClient({
+  uri: 'https://naucast-api.now.sh',
+});
 
 interface State {
   assetsLoaded: boolean;
@@ -30,11 +33,11 @@ export default class App extends React.Component<{}, State> {
   }
 
   public render() {
-    const { assetsLoaded, refreshing, error } = this.state;
+    const { assetsLoaded, refreshing, error, coords } = this.state;
 
     if (assetsLoaded) {
       return (
-        <>
+        <ApolloProvider client={client}>
           <Background />
           <View
             style={{ height: Constants.statusBarHeight }}
@@ -51,19 +54,10 @@ export default class App extends React.Component<{}, State> {
               />
             }
           >
-            {!error && !refreshing && (
-              <>
-                <DateLocation location="Perth, WA" date="Saturday, 26 January" time="4:30pm" />
-                <CurrentTemp temp="30" description="Clear. Winds southeasterly 15 to 25 km/h." />
-                <Stats>
-                  <Stat text="SE" icon="wind" />
-                  <Stat text="5%" icon="rain" />
-                </Stats>
-              </>
-            )}
+            {!error && !refreshing && <Weather coords={coords} />}
             {error && <Error>{error}</Error>}
           </Wrapper>
-        </>
+        </ApolloProvider>
       );
     } else {
       return <AppLoading startAsync={this.loadAssets} onFinish={this.setAssetsLoaded} onError={console.warn} />;
@@ -72,12 +66,12 @@ export default class App extends React.Component<{}, State> {
 
   private onRefresh = () => {
     this.getLocation();
-    this.setState({
-      refreshing: true,
-    });
+    this.setRefreshing(true);
   };
 
   private getLocation = async () => {
+    this.setRefreshing(true);
+
     // Request location permission
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status !== 'granted') {
@@ -95,9 +89,7 @@ export default class App extends React.Component<{}, State> {
       },
     });
 
-    this.setState({
-      refreshing: false,
-    });
+    this.setRefreshing(false);
   };
 
   private loadAssets = async () => {
@@ -115,11 +107,17 @@ export default class App extends React.Component<{}, State> {
     this.setState({ error: null });
   }
 
+  private setRefreshing(val: boolean) {
+    this.setState({
+      refreshing: val,
+    });
+  }
+
   private loadFonts = async () => {
     await Font.loadAsync({
-      'font-light': require('./assets/fonts/HKGrotesk-Light.otf'),
-      'font-regular': require('./assets/fonts/HKGrotesk-Regular.otf'),
-      'font-bold': require('./assets/fonts/HKGrotesk-Bold.otf'),
+      'font-light': require('./assets/fonts/AvenirNext-UltraLight.ttf'),
+      'font-regular': require('./assets/fonts/AvenirNext-Regular.ttf'),
+      'font-bold': require('./assets/fonts/AvenirNext-DemiBold.ttf'),
     });
   };
 }

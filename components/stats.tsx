@@ -11,6 +11,7 @@ const Stats: React.SFC<Props> = ({ style, children }) => <View style={style}>{ch
 const StyledStats = styled(Stats)`
   display: flex;
   flex-direction: row;
+  justify-content: center;
 `;
 
 export default StyledStats;

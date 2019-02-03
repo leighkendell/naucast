@@ -5,16 +5,15 @@ import Content from './content';
 
 interface Props {
   temp: string;
-  description: string;
+  description?: string;
   style?: StyleProp<ViewStyle>;
 }
 
 const CurrentTemp: React.SFC<Props> = ({ temp, description, style }) => (
   <View style={style}>
-    <Content align="center" size={150} weight="light">
+    <Content align="center" size={120}>
       {temp}
     </Content>
-    <Content align="center">{description}</Content>
   </View>
 );
 
