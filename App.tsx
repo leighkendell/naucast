@@ -81,7 +81,7 @@ export default class App extends React.Component<{}, State> {
     }
 
     // Get coords and update state
-    const { coords } = await Location.getCurrentPositionAsync({});
+    const { coords } = await Location.getCurrentPositionAsync({ enableHighAccuracy: false });
     this.setState({
       coords: {
         lat: coords.latitude,

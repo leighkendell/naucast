@@ -5,6 +5,7 @@ import { ActivityIndicator, StyleProp, ViewStyle } from 'react-native';
 import styled from 'styled-components';
 import CurrentTemp from './current-temp';
 import DateLocation from './date-location';
+import FadeInView from './fade-in-view';
 import Stat from './stat';
 import Stats from './stats';
 
@@ -47,14 +48,14 @@ class Weather extends React.Component<Props> {
           const { location } = data;
 
           return (
-            <>
+            <FadeInView>
               <DateLocation location={location.name} dateTime={location.observations.issueDateTime} />
               <CurrentTemp temp={location.observations.temperature} />
               <Stats>
                 <Stat text={location.observations.windDirectionText} icon="wind" />
                 <Stat text={`${location.observations.rainfallSince9am}mm`} icon="rain" />
               </Stats>
-            </>
+            </FadeInView>
           );
         }}
       </Query>
