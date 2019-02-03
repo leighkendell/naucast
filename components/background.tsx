@@ -8,7 +8,7 @@ interface Props {
   style?: StyleProp<ViewStyle>;
 }
 
-const gradient = [theme.colors.darkBlue, theme.colors.lightBlue];
+const gradient = [theme.colors.lightBlue, theme.colors.darkBlue];
 
 const Background: React.SFC<Props> = ({ style }) => <LinearGradient style={style} colors={gradient} />;
 
