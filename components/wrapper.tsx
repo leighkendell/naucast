@@ -1,14 +1,18 @@
 import { Constants } from 'expo';
 import React from 'react';
-import { StyleProp, View, ViewStyle } from 'react-native';
+import { ScrollView, ScrollViewProperties, StyleProp, ViewStyle } from 'react-native';
 import styled from 'styled-components';
 import { theme } from '../helpers/theme';
 
-interface Props {
+interface Props extends ScrollViewProperties {
   style?: StyleProp<ViewStyle>;
 }
 
-const Wrapper: React.SFC<Props> = ({ children, style }) => <View style={style}>{children}</View>;
+const Wrapper: React.SFC<Props> = ({ children, refreshControl, style }) => (
+  <ScrollView refreshControl={refreshControl} contentContainerStyle={style}>
+    {children}
+  </ScrollView>
+);
 
 const StyledWrapper = styled(Wrapper)`
   display: flex;
@@ -17,7 +21,6 @@ const StyledWrapper = styled(Wrapper)`
   align-items: center;
   justify-content: center;
   padding: ${theme.padding};
-  padding-top: ${Constants.statusBarHeight + 40};
 `;
 
 export default StyledWrapper;

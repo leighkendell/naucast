@@ -2,12 +2,13 @@ import { LinearGradient } from 'expo';
 import React from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
 import styled from 'styled-components';
+import { theme } from '../helpers/theme';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
 }
 
-const gradient = ['#04befe', '#4481eb'];
+const gradient = [theme.colors.lightBlue, theme.colors.darkBlue];
 
 const Background: React.SFC<Props> = ({ style }) => <LinearGradient style={style} colors={gradient} />;
 
